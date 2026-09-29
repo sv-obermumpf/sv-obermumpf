@@ -1,0 +1,35 @@
+name: Vereinswebseite veröffentlichen
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Repository laden
+        uses: actions/checkout@v4
+      - name: GitHub Pages vorbereiten
+        uses: actions/configure-pages@v5
+      - name: Webseite bereitstellen
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+      - name: Veröffentlichen
+        id: deployment
+        uses: actions/deploy-pages@v4
