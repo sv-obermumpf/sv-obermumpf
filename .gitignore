@@ -24,3 +24,14 @@ Gemfile.lock
 *.pem
 *.key
 .DS_Store
+
+# Private drafts and the local approval checklist; never deployed or committed.
+.local-review/
+
+# Local Python document-generation caches
+__pycache__/
+*.pyc
+
+# Local document generators; finished HTML and PDF files are versioned instead.
+/scripts/build_statuten.py
+/scripts/build_statuten_html.py
